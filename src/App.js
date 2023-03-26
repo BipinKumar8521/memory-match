@@ -79,6 +79,7 @@ const [disabled, setDisabled] = useState(false)
   return (
     <div className="App">
       <h1>Magic Match</h1>
+      <p>Test your Memory</p>
       <button onClick={shuffleCards}>New Game</button>
 
       <div className="card-grid">
