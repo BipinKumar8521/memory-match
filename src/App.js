@@ -3,12 +3,24 @@ import "./App.css";
 import SingleCard from "./components/SingleCard";
 
 const cardImages = [
-  { "src": "/memory-match/img/potion-1.png", matched: false },
+  { "src": "/memory-match/img/trophy.jpg", matched: false },
   { "src": "/memory-match/img/helmet-1.png", matched: false },
   { "src": "/memory-match/img/ring-1.png", matched: false },
   { "src": "/memory-match/img/scroll-1.png", matched: false },
   { "src": "/memory-match/img/shield-1.png", matched: false },
+  { "src": "/memory-match/img/potion-1.png", matched: false },
   { "src": "/memory-match/img/sword-1.png", matched: false },
+  { "src": "/memory-match/img/bomb.jpg", matched: false },
+  { "src": "/memory-match/img/charge.jpg", matched: false },
+  { "src": "/memory-match/img/diamond.jpg", matched: false },
+  { "src": "/memory-match/img/flag.jpg", matched: false },
+  { "src": "/memory-match/img/gift.jpg", matched: false },
+  { "src": "/memory-match/img/heart.jpg", matched: false },
+  { "src": "/memory-match/img/hourglass.jpg", matched: false },
+  { "src": "/memory-match/img/key.jpg", matched: false },
+  { "src": "/memory-match/img/money.jpg", matched: false },
+  { "src": "/memory-match/img/sheild.jpg", matched: false },
+  { "src": "/memory-match/img/tressure.jpg", matched: false },
 ];
 
 function App() {
