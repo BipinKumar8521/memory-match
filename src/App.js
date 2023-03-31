@@ -75,6 +75,7 @@ else if(levels === "Hard"){
     setCards(shuffleCards)
     setTurns(0)
     setGameOver(false)
+    setLevelMatched(0)
     if(levels==="Easy"){
       setGridCSS("card-grid easy")
       setLevelMatched(24)

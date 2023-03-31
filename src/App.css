@@ -49,7 +49,7 @@ button:hover{
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .card-grid.medium{
-    margin: 4vh 22vh;
+    margin: 4vh 20%;
     grid-gap: 2vh;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
