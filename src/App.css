@@ -11,6 +11,7 @@ button{
   font-weight: bold;
   cursor: pointer;
   font-size: 0.7em;
+  margin: 5px;
 }
 
 button:hover{
@@ -21,14 +22,69 @@ button:hover{
 .card-grid {
   margin: 4vh 3vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2vh;
+}
+.card-grid.easy{
+  margin: 3vh 30vh;
+  grid-gap: 5vh;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.card-grid.medium{
+  margin: 4vh 22vh;
+  grid-gap: 3vh;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.card-grid.hard{
+  grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 @media (max-width:768px) {
   .App {
     max-width: 480px;
   }
-  .card-grid{
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-}}
+  .card-grid.easy{
+    margin: 3vh 2vh;
+    grid-gap: 2vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .card-grid.medium{
+    margin: 4vh 22vh;
+    grid-gap: 2vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .card-grid.hard{
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+}
+.game-content{
+  height: auto;
+  width: auto;
+}
+.game-over {
+  display: none;
+  position: absolute;
+  width: 76%;
+  top: 65%;
+  left: 12%;
+  height: 31%;
+  background-color: #ff9400;
+  z-index: 10;
+  border-radius: 5px;
+  }
+  .game-over.active{
+    display: block;
+  }
+#levels{
+  margin: 10px;
+  background-color: transparent;
+  color: white;
+  padding: 5px;
+  border: 2px solid white;
+}
+#levels option{
+  background-color: #1b1523;
+  color: white;
+  
+}
