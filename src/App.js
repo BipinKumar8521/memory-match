@@ -88,6 +88,9 @@ else if(levels === "Hard"){
       setGridCSS("card-grid hard")
       setLevelMatched(72)
     }
+    else if(levels==="None"){
+      alert("Please choose a level")
+    }
   };
 
   const handleChoice = (card) => {
