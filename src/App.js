@@ -8,7 +8,7 @@ function App() {
   const [message, setMessage] = useState(null);
   const [cardMatched, setcardMatched] = useState(0);
   const [levelMatched, setLevelMatched] = useState(0);
-  const [levels, setLevels] = useState("None");
+  const [levels, setLevels] = useState(null);
   const [gridCSS, setGridCSS] = useState("card-grid");
 
 const [choiceOne, setChoiceOne] = useState(null)
