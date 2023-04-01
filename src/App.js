@@ -6,9 +6,11 @@ function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
   const [message, setMessage] = useState(null);
+  const [endMessage, setEndMessage] = useState(null);
+  const [score, setScore] = useState(0);
   const [cardMatched, setcardMatched] = useState(0);
   const [levelMatched, setLevelMatched] = useState(0);
-  const [levels, setLevels] = useState(null);
+  const [levels, setLevels] = useState("None");
   const [gridCSS, setGridCSS] = useState("card-grid");
 
 const [choiceOne, setChoiceOne] = useState(null)
@@ -65,6 +67,8 @@ else if(levels === "Hard"){
     { "src": "/memory-match/img/tressure.jpg", matched: false },
   ];
 }
+var count =0;
+
   const shuffleCards = () => {
     const shuffleCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
@@ -77,6 +81,8 @@ else if(levels === "Hard"){
     setGameOver(false)
     setLevelMatched(0)
     setcardMatched(0)
+
+
     if(levels==="Easy"){
       setGridCSS("card-grid easy")
       setLevelMatched(6)
@@ -90,9 +96,12 @@ else if(levels === "Hard"){
       setLevelMatched(18)
     }
     else if(levels==="None"){
-      alert("Please choose a level")
       setLevelMatched(null)
+      if(count!==1){
+        alert("Please choose a level")
+      }
     }
+    console.log(count)
   };
 
   const handleChoice = (card) => {
@@ -123,16 +132,19 @@ else if(levels === "Hard"){
     if(cardMatched===levelMatched){
       setGameOver(true)
      if(cardMatched===levelMatched){
-       setMessage("Won")}
+      setEndMessage("Congratulations🎉")
+       setMessage("Won 😊")}
        else{
-         setMessage("Lose")
+        setEndMessage("Try Again ")
+         setMessage("Lose 😒")
            }}
   
   }, [choiceOne, choiceTwo, cardMatched, levelMatched])
 
   useEffect(() => {
+    count =1
     shuffleCards()
-  },[])
+  },[count])
 
   const resetTurn = () => {
     setChoiceOne(null)
@@ -142,7 +154,6 @@ else if(levels === "Hard"){
   }
   const cardMatching = () => {
     setcardMatched(prevMatch => prevMatch + 1)
-    console.log(cardMatched)
   }
 
 
@@ -171,8 +182,9 @@ else if(levels === "Hard"){
         ))}
       </div>
       <div className={gameOver? "game-over active": "game-over"}>
-        <h2>Game over</h2>
-        <p>You {message} with {turns} turns.</p>
+        <h2>{endMessage}</h2>
+        <h3>You {message}</h3>
+        <h3>Score : {score}</h3>
       </div>
       </div>
       <p> Turns: {turns}</p>
