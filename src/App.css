@@ -75,6 +75,7 @@ button:hover{
   }
   .game-over.active{
     display: block;
+ 
   }
 #levels{
   margin: 10px;

@@ -76,20 +76,22 @@ else if(levels === "Hard"){
     setTurns(0)
     setGameOver(false)
     setLevelMatched(0)
+    setcardMatched(0)
     if(levels==="Easy"){
       setGridCSS("card-grid easy")
-      setLevelMatched(24)
+      setLevelMatched(6)
     }
     else if(levels==="Medium"){
       setGridCSS("card-grid medium")
-      setLevelMatched(48)
+      setLevelMatched(12)
     }
     else if(levels==="Hard"){
       setGridCSS("card-grid hard")
-      setLevelMatched(72)
+      setLevelMatched(18)
     }
     else if(levels==="None"){
       alert("Please choose a level")
+      setLevelMatched(null)
     }
   };
 
@@ -101,10 +103,10 @@ else if(levels === "Hard"){
     if (choiceOne && choiceTwo){
       setDisabled(true)
       if(choiceOne.src === choiceTwo.src){
+        setTimeout(() => cardMatching(), 500)
         setCards(prevCards => {
           return prevCards.map(card => {
             if (card.src === choiceOne.src){
-              cardMatching()
               return {...card, matched: true}
             } else {
               return card
@@ -116,13 +118,16 @@ else if(levels === "Hard"){
        setTimeout(() => resetTurn(), 800)
       }
     }
+
+    
     if(cardMatched===levelMatched){
-     setGameOver(true)
-    if(cardMatched===levelMatched){
-      setMessage("Won")}
-      else{
-        setMessage("Lose")
-          }}
+      setGameOver(true)
+     if(cardMatched===levelMatched){
+       setMessage("Won")}
+       else{
+         setMessage("Lose")
+           }}
+  
   }, [choiceOne, choiceTwo, cardMatched, levelMatched])
 
   useEffect(() => {
@@ -137,6 +142,7 @@ else if(levels === "Hard"){
   }
   const cardMatching = () => {
     setcardMatched(prevMatch => prevMatch + 1)
+    console.log(cardMatched)
   }
 
 
