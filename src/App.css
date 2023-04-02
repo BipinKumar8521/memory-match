@@ -89,6 +89,9 @@ button:hover{
 .play-pause{
   display: none;
 }
+.play-pause.active{
+  display: initial;
+}
 .controls{
   display: none;
 }
@@ -97,4 +100,8 @@ button:hover{
 }
 .start{
   display: inline;
+}
+p{
+  display: inline;
+  margin: 2%;
 }

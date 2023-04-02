@@ -18,6 +18,8 @@ const [disabled, setDisabled] = useState(false)
 const [gameOver, setGameOver] = useState(false)
 const [pause, setPause] = useState(true)
 const [controls, setControls]= useState(false)
+const[applyLevel, setApplyLevel]= useState(false)
+const[timerStarted, setTimerStarted]= useState(false)
 const[seconds, setSeconds] = useState(0)
 const[minutes, setMinutes] = useState(0)
 
@@ -99,6 +101,7 @@ const shuffleCard=()=>{
     setDisabled(false)
     setScore(0)
     setPause(true)
+    setApplyLevel(false)
 
 
 
@@ -107,24 +110,28 @@ const shuffleCard=()=>{
       setLevelMatched(6)
       setSeconds(20)
       setMinutes(1)
+      setTimerStarted(false)
     }
     else if(levels==="Medium"){
       setGridCSS("card-grid medium")
       setLevelMatched(12)
       setSeconds(30)
       setMinutes(2)
+      setTimerStarted(false)
     }
     else if(levels==="Hard"){
       setGridCSS("card-grid hard")
       setLevelMatched(18)
       setSeconds(30)
       setMinutes(3)
+      setTimerStarted(false)
     }
     else if(levels==="None"){
       setLevelMatched(null)
       setSeconds(0)
       setMinutes(10)
       setPause(true)
+      setTimerStarted(false)
       
       if(count!==1){
         alert("Please choose a level")
@@ -138,6 +145,7 @@ const shuffleCard=()=>{
   useEffect(()=>{
     timer= setInterval(()=>{
     setSeconds(seconds-1);
+    setTimerStarted(true)
     
     if(seconds===0){
       setMinutes(minutes-1);
@@ -145,7 +153,7 @@ const shuffleCard=()=>{
     }
     setScore(prevScore=>prevScore-3)
     
-    },1000)
+    },900)
     if(pause){
       clearInterval(timer);
       setDisabled(true)
@@ -186,7 +194,14 @@ const shuffleCard=()=>{
         })
         resetTurn()
       } else{
-       setTimeout(() => resetTurn(), 800)
+        if(levels==="Hard"){
+       setTimeout(() => resetTurn(), 400)}
+       else if(levels==="Medium"){
+        setTimeout(() => resetTurn(), 450)
+       }
+       else if(levels==="Easy"){
+        setTimeout(() => resetTurn(), 500)
+       }
       }
     }
 
@@ -224,6 +239,7 @@ const shuffleCard=()=>{
     setTurns(prevTurns => prevTurns +1)
     setScore(prevScore => prevScore - 10)
     setDisabled(false)
+    setSeconds(seconds-1)
   }
   const cardMatching = () => {
     setcardMatched(prevMatch => prevMatch + 1)
@@ -235,23 +251,24 @@ const shuffleCard=()=>{
   return (
     <div className="App">
       <h1>Magic Match</h1>
-      <p>Test your Memory</p>
-      <select id="levels" value={levels} onChange={e=>setLevels(e.target.value)}>
+      <h3>Test your Memory</h3>
+      <select id="levels" value={levels} onChange={e=>{setLevels(e.target.value); setApplyLevel(true)}}>
   <option value="None">Choose Levels</option>
-  <option value="Easy">Easy</option>
-  <option value="Medium">Medium</option>
-  <option value="Hard">Hard</option>
+  <option value="Easy">Easy Level</option>
+  <option value="Medium">Medium Level</option>
+  <option value="Hard">Hard Level</option>
 </select>
 <br />
-      <button onClick={shuffleCard}>New Game</button>
+      <button className={applyLevel? "play-pause active": "play-pause"} onClick={shuffleCard}>Apply Level</button>
       <div className={controls? "": "play-pause"}>
-        <button onClick={()=>setPause(false)}>Start</button>
+        <button className={timerStarted? "controls":"controls pause"} onClick={()=>setPause(false)}>Start</button>
+        <button className={timerStarted? "controls pause":"controls"} onClick={shuffleCard}>Reset</button>
 
       <button className={pause? "controls":"controls pause"} onClick={()=> setPause(true)}>Pause</button>
       <button className={pause? "controls pause": "controls"} onClick={()=>setPause(false)}>Resume</button>
       </div>
 
-      <p>Time Remaining: <b>{minutes<10? "0"+minutes: minutes}:{seconds<10? "0"+ seconds: seconds} </b></p>
+      <p>Time Remaining: <b>{minutes<10? "0"+minutes: minutes}:{seconds<10? "0"+ seconds: seconds} </b></p><p> Turns: <b>{turns}</b></p>
 
       <div className={gridCSS}>
         {cards.map((card) => (
@@ -270,7 +287,7 @@ const shuffleCard=()=>{
 
       
       
-      <p> Turns: {turns}</p>
+      
     </div>
   );
 }
