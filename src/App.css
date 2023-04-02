@@ -58,23 +58,19 @@ button:hover{
   }
 
 }
-.game-content{
-  height: auto;
-  width: auto;
-}
 .game-over {
   display: none;
   position: absolute;
-  width: 76%;
+  padding: 4%;
   top: 65%;
   left: 12%;
-  height: 31%;
-  background-color: #ff0000;
+  background-color: purple;
   z-index: 10;
   border-radius: 5px;
   }
   .game-over.active{
-    display: block;
+    display: flex;
+    flex-direction: column;
  
   }
 #levels{
@@ -88,4 +84,8 @@ button:hover{
   background-color: #1b1523;
   color: white;
   
+}
+
+.play-pause{
+  display: none;
 }

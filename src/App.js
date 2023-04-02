@@ -12,11 +12,22 @@ function App() {
   const [levelMatched, setLevelMatched] = useState(0);
   const [levels, setLevels] = useState("None");
   const [gridCSS, setGridCSS] = useState("card-grid");
-
 const [choiceOne, setChoiceOne] = useState(null)
 const [choiceTwo, setChoiceTwo] = useState(null)
 const [disabled, setDisabled] = useState(false)
 const [gameOver, setGameOver] = useState(false)
+const [pause, setPause] = useState(true)
+const [controls, setControls]= useState(false)
+const[seconds, setSeconds] = useState(0)
+const[minutes, setMinutes] = useState(0)
+
+var timer;
+
+
+
+
+
+
 
 
 var cardImages =[];
@@ -68,6 +79,10 @@ else if(levels === "Hard"){
   ];
 }
 var count =0;
+const shuffleCard=()=>{
+  setControls(true)
+  shuffleCards()
+}
 
   const shuffleCards = () => {
     const shuffleCards = [...cardImages, ...cardImages]
@@ -81,38 +96,82 @@ var count =0;
     setGameOver(false)
     setLevelMatched(0)
     setcardMatched(0)
+    setDisabled(false)
+    setScore(0)
+    setPause(false)
+
 
 
     if(levels==="Easy"){
       setGridCSS("card-grid easy")
       setLevelMatched(6)
+      setSeconds(20)
+      setMinutes(1)
     }
     else if(levels==="Medium"){
       setGridCSS("card-grid medium")
       setLevelMatched(12)
+      setSeconds(30)
+      setMinutes(2)
     }
     else if(levels==="Hard"){
       setGridCSS("card-grid hard")
       setLevelMatched(18)
+      setSeconds(30)
+      setMinutes(3)
     }
     else if(levels==="None"){
       setLevelMatched(null)
+      setSeconds(0)
+      setMinutes(10)
+      setPause(true)
+      
       if(count!==1){
         alert("Please choose a level")
       }
     }
-    console.log(count)
   };
 
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   }
 
+  useEffect(()=>{
+    timer= setInterval(()=>{
+    setSeconds(seconds-1);
+    
+    if(seconds===0){
+      setMinutes(minutes-1);
+      setSeconds(59);
+    }
+    setScore(prevScore=>prevScore-3)
+    
+    },1000)
+    if(pause){
+      clearInterval(timer);
+      setDisabled(true)
+    }
+    setDisabled(false)
+    if(seconds===0 && minutes===0){
+      if(levels!=="None"){
+        setGameOver(true);
+      }
+      setPause(true)
+    }
+    
+    return()=> clearInterval(timer);
+    });
+
+
+
+
+
   useEffect(() => {
     if (choiceOne && choiceTwo){
       setDisabled(true)
       if(choiceOne.src === choiceTwo.src){
         setTimeout(() => cardMatching(), 500)
+        setScore(prevScore => prevScore + 100)
         setCards(prevCards => {
           return prevCards.map(card => {
             if (card.src === choiceOne.src){
@@ -131,25 +190,33 @@ var count =0;
     
     if(cardMatched===levelMatched){
       setGameOver(true)
+    }
+    if(gameOver){
      if(cardMatched===levelMatched){
       setEndMessage("Congratulations🎉")
-       setMessage("Won 😊")}
+       setMessage("Won 😊")
+       setPause(true)
+       setControls(false)
+      }
        else{
         setEndMessage("Try Again ")
          setMessage("Lose 😒")
+         setDisabled(true)
            }}
   
-  }, [choiceOne, choiceTwo, cardMatched, levelMatched])
+  }, [choiceOne, choiceTwo, cardMatched, levelMatched, gameOver])
 
   useEffect(() => {
     count =1
     shuffleCards()
   },[count])
 
+
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns(prevTurns => prevTurns +1)
+    setScore(prevScore => prevScore - 10)
     setDisabled(false)
   }
   const cardMatching = () => {
@@ -170,9 +237,14 @@ var count =0;
   <option value="Hard">Hard</option>
 </select>
 <br />
-      <button onClick={shuffleCards}>New Game</button>
+      <button onClick={shuffleCard}>New Game</button>
+      <div className={controls? "": "play-pause"}>
+        <button onClick={()=>setPause(false)}>Start</button>
+      <button  onClick={()=> setPause(true)}>Pause</button>
+      </div>
 
-<div className="game-content">
+      <p>Time Remaining: <b>{minutes<10? "0"+minutes: minutes}:{seconds<10? "0"+ seconds: seconds} </b></p>
+
       <div className={gridCSS}>
         {cards.map((card) => (
         <SingleCard key={card.id} card={card} handleChoice={handleChoice} 
@@ -180,13 +252,16 @@ var count =0;
         disabled={disabled}
         />
         ))}
-      </div>
-      <div className={gameOver? "game-over active": "game-over"}>
+
+<div className={gameOver? "game-over active": "game-over"}>
         <h2>{endMessage}</h2>
         <h3>You {message}</h3>
-        <h3>Score : {score}</h3>
+        <h3>Score : {score<0? 0 : score}</h3>
       </div>
       </div>
+
+      
+      
       <p> Turns: {turns}</p>
     </div>
   );
