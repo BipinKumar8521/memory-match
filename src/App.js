@@ -98,7 +98,7 @@ const shuffleCard=()=>{
     setcardMatched(0)
     setDisabled(false)
     setScore(0)
-    setPause(false)
+    setPause(true)
 
 
 
@@ -135,7 +135,6 @@ const shuffleCard=()=>{
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   }
-
   useEffect(()=>{
     timer= setInterval(()=>{
     setSeconds(seconds-1);
@@ -147,11 +146,12 @@ const shuffleCard=()=>{
     setScore(prevScore=>prevScore-3)
     
     },1000)
+    setDisabled(false)
     if(pause){
       clearInterval(timer);
       setDisabled(true)
     }
-    setDisabled(false)
+    
     if(seconds===0 && minutes===0){
       if(levels!=="None"){
         setGameOver(true);
@@ -202,6 +202,7 @@ const shuffleCard=()=>{
         setEndMessage("Try Again ")
          setMessage("Lose 😒")
          setDisabled(true)
+         setControls(false)
            }}
   
   }, [choiceOne, choiceTwo, cardMatched, levelMatched, gameOver])
@@ -240,7 +241,9 @@ const shuffleCard=()=>{
       <button onClick={shuffleCard}>New Game</button>
       <div className={controls? "": "play-pause"}>
         <button onClick={()=>setPause(false)}>Start</button>
-      <button  onClick={()=> setPause(true)}>Pause</button>
+
+      <button className={pause? "controls":"controls pause"} onClick={()=> setPause(true)}>Pause</button>
+      <button className={pause? "controls pause": "controls"} onClick={()=>setPause(false)}>Resume</button>
       </div>
 
       <p>Time Remaining: <b>{minutes<10? "0"+minutes: minutes}:{seconds<10? "0"+ seconds: seconds} </b></p>

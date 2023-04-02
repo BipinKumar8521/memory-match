@@ -89,3 +89,12 @@ button:hover{
 .play-pause{
   display: none;
 }
+.controls{
+  display: none;
+}
+.controls.pause{
+  display: initial;
+}
+.start{
+  display: inline;
+}
