@@ -146,12 +146,10 @@ const shuffleCard=()=>{
     setScore(prevScore=>prevScore-3)
     
     },1000)
-    setDisabled(false)
     if(pause){
       clearInterval(timer);
       setDisabled(true)
     }
-    
     if(seconds===0 && minutes===0){
       if(levels!=="None"){
         setGameOver(true);
@@ -167,6 +165,11 @@ const shuffleCard=()=>{
 
 
   useEffect(() => {
+    setDisabled(false)
+    if(pause){
+      clearInterval(timer);
+      setDisabled(true)
+    }
     if (choiceOne && choiceTwo){
       setDisabled(true)
       if(choiceOne.src === choiceTwo.src){
@@ -204,8 +207,10 @@ const shuffleCard=()=>{
          setDisabled(true)
          setControls(false)
            }}
+
+           
   
-  }, [choiceOne, choiceTwo, cardMatched, levelMatched, gameOver])
+  }, [choiceOne, choiceTwo, cardMatched, levelMatched, gameOver, pause])
 
   useEffect(() => {
     count =1
