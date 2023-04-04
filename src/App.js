@@ -23,7 +23,7 @@ const[timerStarted, setTimerStarted]= useState(false)
 const[resumeBtnDisabled, setresumeBtnDisabled]=useState(false)
 const[seconds, setSeconds] = useState(0)
 const[minutes, setMinutes] = useState(0)
-
+const[levelSeconds, setLevelSeconds]= useState(0)
 var timer;
 
 
@@ -41,7 +41,7 @@ if(levels==="Easy"){
     { "src": "/memory-match/img/scroll-1.png", matched: false },
     { "src": "/memory-match/img/shield-1.png", matched: false },
     { "src": "/memory-match/img/potion-1.png", matched: false }];
-    // setGridCSS("card-grid easy")
+  
 }
 else if(levels==="Medium"){
    cardImages = [
@@ -111,6 +111,7 @@ const shuffleCard=()=>{
       setSeconds(20)
       setMinutes(1)
       setTimerStarted(false)
+      setLevelSeconds(3)
     }
     else if(levels==="Medium"){
       setGridCSS("card-grid medium")
@@ -118,6 +119,7 @@ const shuffleCard=()=>{
       setSeconds(30)
       setMinutes(2)
       setTimerStarted(false)
+      setLevelSeconds(5)
     }
     else if(levels==="Hard"){
       setGridCSS("card-grid hard")
@@ -125,6 +127,7 @@ const shuffleCard=()=>{
       setSeconds(30)
       setMinutes(3)
       setTimerStarted(false)
+      setLevelSeconds(7)
     }
     else if(levels==="None"){
       setLevelMatched(null)
@@ -138,6 +141,7 @@ const shuffleCard=()=>{
       }
     }
   };
+
 
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
@@ -153,7 +157,7 @@ const shuffleCard=()=>{
       setMinutes(minutes-1);
       setSeconds(59);
     }
-    setScore(prevScore=>prevScore-3)
+    setScore(prevScore=>prevScore-levelSeconds)
     
     },900)
     if(pause){
@@ -258,8 +262,6 @@ const shuffleCard=()=>{
     setcardMatched(prevMatch => prevMatch + 1)
   }
 
-
-  
   
   return (
     <div className="App">
