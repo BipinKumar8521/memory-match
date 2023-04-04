@@ -38,6 +38,16 @@ button:hover{
 .card-grid.hard{
   grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+.game-over {
+  display: none;
+  position: absolute;
+  padding: 4%;
+  top: 52%;
+  left: 31%;
+  background-color: purple;
+  z-index: 10;
+  border-radius: 5px;
+  }
 
 @media (max-width:768px) {
   .App {
@@ -56,18 +66,25 @@ button:hover{
   .card-grid.hard{
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
   }
+  .game-over{
+    font-size: 1.4rem;
+    top: 58% !important;
+    left: 8% !important;
+    padding: 2% !important;
+  }
 
 }
-.game-over {
-  display: none;
-  position: absolute;
-  padding: 4%;
-  top: 65%;
-  left: 12%;
-  background-color: purple;
-  z-index: 10;
-  border-radius: 5px;
+@media (max-width:430px){
+  .game-over{
+    font-size: 1.4rem;
+    top: 58% !important;
+    left: 29% !important;
+    padding: 2% !important;
   }
+  .game-over h2,.game-over h3{
+    margin: 10px;
+  }
+}
   .game-over.active{
     display: flex;
     flex-direction: column;

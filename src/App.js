@@ -20,11 +20,11 @@ const [pause, setPause] = useState(true)
 const [controls, setControls]= useState(false)
 const[applyLevel, setApplyLevel]= useState(false)
 const[timerStarted, setTimerStarted]= useState(false)
+const[resumeBtnDisabled, setresumeBtnDisabled]=useState(false)
 const[seconds, setSeconds] = useState(0)
 const[minutes, setMinutes] = useState(0)
 
 var timer;
-
 
 
 
@@ -144,8 +144,10 @@ const shuffleCard=()=>{
   }
   useEffect(()=>{
     timer= setInterval(()=>{
-    setSeconds(seconds-1);
-    setTimerStarted(true)
+      setTimerStarted(true)
+      setresumeBtnDisabled(false)
+      setSeconds(seconds-1);
+      
     
     if(seconds===0){
       setMinutes(minutes-1);
@@ -163,6 +165,12 @@ const shuffleCard=()=>{
         setGameOver(true);
       }
       setPause(true)
+    }
+    if(resumeBtnDisabled){
+      document.getElementById("resumebtn").disabled=true;
+    }
+    else{
+      document.getElementById("resumebtn").disabled=false;
     }
     
     return()=> clearInterval(timer);
@@ -240,6 +248,11 @@ const shuffleCard=()=>{
     setScore(prevScore => prevScore - 10)
     setDisabled(false)
     setSeconds(seconds-1)
+        
+    if(seconds===0){
+      setMinutes(minutes-1);
+      setSeconds(59);
+    }
   }
   const cardMatching = () => {
     setcardMatched(prevMatch => prevMatch + 1)
@@ -260,12 +273,12 @@ const shuffleCard=()=>{
 </select>
 <br />
       <button className={applyLevel? "play-pause active": "play-pause"} onClick={shuffleCard}>Apply Level</button>
-      <div className={controls? "": "play-pause"}>
+     <br /> <div className={controls? "": "play-pause"}>
         <button className={timerStarted? "controls":"controls pause"} onClick={()=>setPause(false)}>Start</button>
         <button className={timerStarted? "controls pause":"controls"} onClick={shuffleCard}>Reset</button>
 
       <button className={pause? "controls":"controls pause"} onClick={()=> setPause(true)}>Pause</button>
-      <button className={pause? "controls pause": "controls"} onClick={()=>setPause(false)}>Resume</button>
+      <button id="resumebtn" className={pause? "controls pause": "controls"} onClick={()=>{timerStarted? setPause(false): setresumeBtnDisabled(true)}}>Resume</button>
       </div>
 
       <p>Time Remaining: <b>{minutes<10? "0"+minutes: minutes}:{seconds<10? "0"+ seconds: seconds} </b></p><p> Turns: <b>{turns}</b></p>
@@ -282,6 +295,7 @@ const shuffleCard=()=>{
         <h2>{endMessage}</h2>
         <h3>You {message}</h3>
         <h3>Score : {score<0? 0 : score}</h3>
+        <button onClick={shuffleCard}>Restart</button>
       </div>
       </div>
 
