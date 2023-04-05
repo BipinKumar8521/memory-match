@@ -108,24 +108,24 @@ const shuffleCard=()=>{
     if(levels==="Easy"){
       setGridCSS("card-grid easy")
       setLevelMatched(6)
-      setSeconds(20)
-      setMinutes(1)
+      setSeconds(50)
+      setMinutes(0)
       setTimerStarted(false)
       setLevelSeconds(3)
     }
     else if(levels==="Medium"){
       setGridCSS("card-grid medium")
       setLevelMatched(12)
-      setSeconds(30)
-      setMinutes(2)
+      setSeconds(20)
+      setMinutes(1)
       setTimerStarted(false)
       setLevelSeconds(5)
     }
     else if(levels==="Hard"){
       setGridCSS("card-grid hard")
       setLevelMatched(18)
-      setSeconds(30)
-      setMinutes(3)
+      setSeconds(10)
+      setMinutes(2)
       setTimerStarted(false)
       setLevelSeconds(7)
     }
