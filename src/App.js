@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SingleCard from "./components/SingleCard";
+import HighScore from "./components/HighScore";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -275,7 +276,12 @@ const shuffleCard=()=>{
 </select>
 <br />
       <button className={applyLevel? "play-pause active": "play-pause"} onClick={shuffleCard}>Apply Level</button>
-     <br /> <div className={controls? "": "play-pause"}>
+     <br /> 
+     <HighScore
+     score ={score}
+     gameOver ={gameOver}
+     levels ={levels}/>
+       <div className={controls? "": "play-pause"}>
         <button className={timerStarted? "controls":"controls pause"} onClick={()=>setPause(false)}>Start</button>
         <button className={timerStarted? "controls pause":"controls"} onClick={shuffleCard}>Reset</button>
 
