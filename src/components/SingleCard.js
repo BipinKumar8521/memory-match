@@ -1,11 +1,16 @@
 import './SingleCard.css'
 
 export default function SingleCard({card, handleChoice, flipped, disabled}) {
+  const tapMusic =() =>{
+    let tap = new Audio("/memory-match/music/tap.mp3");
+    tap.play()
+  }
 
 
     const handleClick =() => {
       if(!disabled){
         handleChoice(card)
+        tapMusic()
           }    }
   return (
     <div className="card" >

@@ -4,6 +4,8 @@ import SingleCard from "./components/SingleCard";
 import HighScore from "./components/HighScore";
 import NewUpdate from "./components/NewUpdate";
 import Suggestion from "./components/Suggestion";
+import Musics from "./components/Musics";
+
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -29,6 +31,19 @@ const[minutes, setMinutes] = useState(0)
 const[levelSeconds, setLevelSeconds]= useState(0)
 var timer;
 
+// musics
+const matchedmusic = () =>{
+  let matchedaud = new Audio("/memory-match/music/matched.mp3");
+  matchedaud.play()
+}
+const wonmusic = () =>{
+  let wonaud = new Audio("/memory-match/music/won.mp3");
+  wonaud.play()
+}
+const losemusic = () =>{
+  let loseaud = new Audio("/memory-match/music/lose.mp3");
+  loseaud.play()
+}
 
 
 
@@ -196,6 +211,7 @@ const shuffleCard=()=>{
     if (choiceOne && choiceTwo){
       setDisabled(true)
       if(choiceOne.src === choiceTwo.src){
+        matchedmusic()
         setTimeout(() => cardMatching(), 500)
         setScore(prevScore => prevScore + 100)
         setCards(prevCards => {
@@ -230,12 +246,14 @@ const shuffleCard=()=>{
        setMessage("Won 😊")
        setPause(true)
        setControls(false)
+       wonmusic()
       }
        else{
         setEndMessage("Try Again ")
          setMessage("Lose 😒")
          setDisabled(true)
          setControls(false)
+         losemusic()
            }}
 
            
@@ -264,10 +282,12 @@ const shuffleCard=()=>{
   const cardMatching = () => {
     setcardMatched(prevMatch => prevMatch + 1)
   }
-
   
   return (
     <div className="App">
+      {/* <Musics
+      pause={pause}
+      /> */}
       <NewUpdate/>
       <h1>Magic Match</h1>
       <h3>Test your Memory</h3>
