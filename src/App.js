@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SingleCard from "./components/SingleCard";
 import HighScore from "./components/HighScore";
+import NewUpdate from "./components/NewUpdate";
+import Suggestion from "./components/Suggestion";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -266,6 +268,7 @@ const shuffleCard=()=>{
   
   return (
     <div className="App">
+      <NewUpdate/>
       <h1>Magic Match</h1>
       <h3>Test your Memory</h3>
       <select id="levels" value={levels} onChange={e=>{setLevels(e.target.value); setApplyLevel(true)}}>
@@ -281,6 +284,8 @@ const shuffleCard=()=>{
      score ={score}
      gameOver ={gameOver}
      levels ={levels}/>
+     
+     <br />
        <div className={controls? "": "play-pause"}>
         <button className={timerStarted? "controls":"controls pause"} onClick={()=>setPause(false)}>Start</button>
         <button className={timerStarted? "controls pause":"controls"} onClick={shuffleCard}>Reset</button>
@@ -307,7 +312,7 @@ const shuffleCard=()=>{
       </div>
       </div>
 
-      
+      <Suggestion/>
       
       
     </div>

@@ -1,0 +1,71 @@
+.suggestion{
+    position: fixed;
+    background-color: rgb(120, 22, 173);
+    color: white;
+    text-align: center;
+    width: 71%;
+    min-height: 73%;
+    height: auto;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    animation: appear 0.7s 1;
+    top: 20%;
+}
+.suggestion.inactive{
+    animation: disap 1s forwards;
+}
+@keyframes appear {
+from{transform: translateY(150%);}
+to{transform: translateY(auto); }
+}
+@keyframes disap {
+from{transform: translateY(auto); }
+to{transform: translateY(150%);}
+}
+
+@media(max-width:768px){
+    .suggestion{
+        width: 100%;
+    }
+}
+input,
+input,
+textarea{
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 10px;
+    color: black;
+    padding: 10px;
+    margin-left: 10%;
+}
+.cancelbtn{
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.cancelbtn:hover{
+    background-color: rgb(212, 214, 215);
+ 
+}
+form{
+    margin: 5vh 10vh;
+    text-align: start;
+}
+form p {
+    padding-left: 5%;
+    font-weight: bold;
+}
+.submitbtn{
+    position: absolute;
+    left: 40%;
+}
+.none{
+    display: none;
+}
