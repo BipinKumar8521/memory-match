@@ -314,7 +314,6 @@ const shuffleCard=()=>{
 
       <Suggestion/>
       
-      
     </div>
   );
 }

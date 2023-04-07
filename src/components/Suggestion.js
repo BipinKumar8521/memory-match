@@ -6,29 +6,39 @@ import HashLoader from "react-spinners/HashLoader";
  
 export default function Suggestion() {
     const form = useRef();
+    const [Display, setDisplay]= useState(null)
+    const [Loading, setLoading]= useState(false)
+    const[pageDisable, setPageDisable]= useState(false)
+    const[thankyou, setthankyou]= useState(null)
+
 
     const sendEmail = (e) => {
       e.preventDefault();
       setLoading(true)
+      setPageDisable(true)
   
       emailjs.sendForm('service_vn3skor', 'template_mpvf51g', form.current, 'L2fgkFmrgswWGPxyt')
         .then((result) => {
             console.log(result.text);
-            alert("Message sent successfully")
-            setLoading(false)
-            setTimeout(() =>{
-             changeDisplayFalse()
-            }, 2000)
+            setTimeout(() => {
+              alert("Message sent successfully")
+              setLoading(false)
+              setPageDisable(false)
+              setthankyou(true)
+              setTimeout(() =>{
+               changeDisplayFalse()
+               setthankyou(false)
+              }, 2000)
+            }, 5000);        
         }, (error) => {
             console.log(error.text);
             alert("Message not sent. Please try again")
             changeDisplayFalse()
+            setPageDisable(false)
+            setLoading(false)
         });
     };
 
-
-    const [Display, setDisplay]= useState(null)
-    const [Loading, setLoading]= useState(false)
     const changeDisplayFalse =() =>{
   setDisplay(false)
     }
@@ -39,17 +49,18 @@ export default function Suggestion() {
   return (
 
     <div className="suggetion">
-      
-    <div className={Display===true? "suggestion" : (Display===false? "suggestion inactive" : "none")}>
-    <HashLoader
-        color={'#4008a2'}
+        <HashLoader
+        color={'#36d7b7'}
         loading={Loading}
-        size={150}
+        size={100}
         cssOverride={{
-          "z-index": "100",
-          "position": "fixed"
+          "z-index": "1000",
+          "position": "fixed",
+          "left": "40%",
+          "top": "40%"
         }}
       />
+    <div className={Display===true? "suggestion" : (Display===false? "suggestion inactive" : "none")}>
     <form ref={form} onSubmit={sendEmail}>
     <p>Name :
     <input type="text" name="user_name" required placeholder='Enter Your Name'/></p>
@@ -64,10 +75,13 @@ export default function Suggestion() {
   </form>
   <img className='cancelbtn' onClick={changeDisplayFalse} src="/memory-match/img/close.png" alt="" />
   </div>
-  {/* <div className="thankyou">
-    <p>Thank you for your suggestion</p>
-  </div> */}
+  <div className={thankyou===true? "thanks" : (thankyou===false? "thanks inactive" : "none")}>
+    <h1>Thank you </h1>
+    <p>for your suggestion</p>
+  </div>
     <p>Any suggestions? <button onClick={changeDisplayTrue}>Click Here</button></p>
+    {/* page disable div */}
+    <div className={pageDisable? "div": ""}></div>
   </div>
   )
 }
